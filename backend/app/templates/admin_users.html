@@ -20,6 +20,7 @@
       <tr>
         <td>{{u.id}}</td><td>{{u.full_name}}</td><td>{{u.email}}</td><td><span class="badge bg-secondary">{{u.role}}</span></td>
         <td>
+          {% if user.role == 'admin' %}
           <form method="post" action="/admin/users/{{u.id}}/role" class="d-flex gap-2">
             <select class="form-select" name="role">
               <option value="student" {% if u.role == 'student' %}selected{% endif %}>student</option>
@@ -29,6 +30,7 @@
             </select>
             <button class="btn btn-sm btn-primary">Save role</button>
           </form>
+          {% endif %}
         </td>
       </tr>
       {% else %}
