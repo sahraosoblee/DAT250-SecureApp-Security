@@ -14,7 +14,7 @@ if [ -e certs/cert.pem ] || [ -e certs/key.pem ]; then
     exit 1
 fi
 
-openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 365 \
+MSYS_NO_PATHCONV=1 openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 365 \
     -keyout certs/key.pem \
     -out certs/cert.pem \
     -subj "/CN=localhost" \

@@ -113,6 +113,12 @@ The browser will warn because the development certificate is self-signed.
 - Nginx does not start: run `sh scripts/generate-dev-cert.sh` and restart the stack.
 - App not updated: run `docker compose down -v` and rebuild.
 - Database issues: use the reset command to recreate data.
+- Login returns HTTP 500 with `column "failed_login_attempts" does not exist`: apply the login-lockout columns to an existing database without deleting its data:
+
+  ```bash
+  docker compose exec -T db psql -v ON_ERROR_STOP=1 -U dat250 -d dat250 \
+    -c "ALTER TABLE users ADD COLUMN IF NOT EXISTS failed_login_attempts INTEGER NOT NULL DEFAULT 0, ADD COLUMN IF NOT EXISTS last_failed_login_at TIMESTAMPTZ, ADD COLUMN IF NOT EXISTS login_locked_until TIMESTAMPTZ;"
+  ```
 
 ## 9. What students submit
 - Security test plan
