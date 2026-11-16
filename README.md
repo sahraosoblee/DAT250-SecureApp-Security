@@ -13,25 +13,31 @@ This repository contains a local-only lab web application for DAT250 Information
 ```bash
 git clone <repo>
 cd dat250-secureapp
+sh scripts/generate-dev-cert.sh
 docker compose down -v
 docker compose up --build
 ```
 
 ## 4. URLs
-- App: [http://localhost:18181](http://localhost:18181)
+- App: [https://localhost:18443](https://localhost:18443)
+- HTTP redirects to HTTPS at `http://localhost:18181`.
 - MailHog inbox: [http://localhost:8025](http://localhost:8025)
 - Optional database admin UI: [http://localhost:8081](http://localhost:8081), if enabled
-- API docs (if available in this lab build): [http://localhost:18181/docs](http://localhost:18181/docs)
+- API docs (if available in this lab build): [https://localhost:18443/docs](https://localhost:18443/docs)
+
+The app uses a self-signed certificate for local lab use. Your browser will show a certificate warning; do not use this certificate for a public deployment. The generated private key is local-only and ignored by Git.
 
 ## Running the app
 
 ```bash
+sh scripts/generate-dev-cert.sh
 docker compose down -v
 docker compose up --build
 ```
 
 Main URLs:
-- Main app: `http://localhost:18181`
+- Main app: `https://localhost:18443`
+- HTTP redirect: `http://localhost:18181`
 - MailHog: `http://localhost:8025`
 - Optional database admin UI: `http://localhost:8081`, if enabled
 
@@ -77,7 +83,9 @@ Students may use external course-approved tools (for example browser DevTools an
 ### Mode A: App and tools on the same machine
 
 Use:
-`http://localhost:18181`
+`https://localhost:18443`
+
+The browser will warn because the development certificate is self-signed.
 
 ### Mode B: App on physical laptop, Kali in VM
 
@@ -85,21 +93,24 @@ Use:
 - Find the host IP address reachable from Kali.
 - Try the host-only adapter IP, bridged adapter IP, or default gateway depending on virtualization mode.
 - Open from Kali:
-  `http://<HOST-IP>:18181`
+  `https://<HOST-IP>:18443`
 
 ### Mode C: App in one VM, Kali in another VM
 
 - Put both VMs on the same virtual network.
 - Bridged or host-only networking is usually easiest.
 - Start Docker inside the target VM.
+- Generate the local development certificate before starting Compose:
+  `sh scripts/generate-dev-cert.sh`
 - Find the target VM IP:
   `ip -4 addr`
 - From Kali, open:
-  `http://<TARGET-VM-IP>:18181`
+  `https://<TARGET-VM-IP>:18443`
 
 ## 8. Troubleshooting
 - Docker not running: start Docker Desktop first.
 - Port already in use: stop other services on 18181/8025/5432.
+- Nginx does not start: run `sh scripts/generate-dev-cert.sh` and restart the stack.
 - App not updated: run `docker compose down -v` and rebuild.
 - Database issues: use the reset command to recreate data.
 

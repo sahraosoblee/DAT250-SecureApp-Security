@@ -5,11 +5,13 @@ services:
       - backend
     ports:
       - "0.0.0.0:18181:80"
+      - "0.0.0.0:18443:443"
     networks:
       - dat250-net
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./backend/app/static:/var/www/static:ro
+      - ./certs:/etc/nginx/certs:ro
 
   backend:
     build:

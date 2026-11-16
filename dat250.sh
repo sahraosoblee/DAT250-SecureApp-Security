@@ -21,7 +21,7 @@ case "$CMD" in
     docker compose pull --ignore-pull-failures
     docker compose build --no-cache
     docker compose up -d --force-recreate --remove-orphans
-    echo "Stack running in the background: http://localhost:18181"
+    echo "Stack running in the background: https://localhost:18443"
     ;;
   logs)
     docker compose logs -f

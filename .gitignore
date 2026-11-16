@@ -2,6 +2,7 @@ instructor_private/
 __pycache__/
 *.pyc
 .env
+certs/
 backend/app/uploads/*
 !backend/app/uploads/.gitkeep
 push.sh

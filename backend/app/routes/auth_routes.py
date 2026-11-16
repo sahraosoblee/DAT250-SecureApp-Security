@@ -35,7 +35,7 @@ def login(request: Request, email: str = Form(...), password: str = Form(...)):
 
     token = create_session(user["id"])
     resp = RedirectResponse("/dashboard", status_code=302)
-    resp.set_cookie("session_token", token)
+    resp.set_cookie("session_token", token, secure=True, httponly=True, samesite="lax")
     return resp
 
 
@@ -68,7 +68,7 @@ def logout(request: Request):
     if token:
         clear_session(token)
     resp = RedirectResponse("/", status_code=302)
-    resp.delete_cookie("session_token")
+    resp.delete_cookie("session_token", secure=True, httponly=True, samesite="lax")
     return resp
 
 

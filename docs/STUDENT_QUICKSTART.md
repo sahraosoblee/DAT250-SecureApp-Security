@@ -1,17 +1,20 @@
 # Student Quickstart
 
 1. Clone repository and open terminal in `dat250-secureapp`.
-2. Run `docker compose up --build`.
-3. Open `http://localhost:18181`.
-4. Use provided test users to explore functionality.
-5. Use external course tools where required by assignments.
+2. Generate a local development certificate: `sh scripts/generate-dev-cert.sh`.
+3. Run `docker compose up --build`.
+4. Open `https://localhost:18443` and accept the self-signed certificate warning for this local lab.
+5. Use provided test users to explore functionality.
+6. Use external course tools where required by assignments.
 
 ## Access from Kali or another VM
 
-- Same machine: open `http://localhost:18181`
-- App on host + Kali VM: open `http://<HOST-IP>:18181`
-- App in target VM + Kali in separate VM: open `http://<TARGET-VM-IP>:18181`
-- App inside Kali: open `http://localhost:18181`
+- Same machine: open `https://localhost:18443`
+- App on host + Kali VM: open `https://<HOST-IP>:18443`
+- App in target VM + Kali in separate VM: open `https://<TARGET-VM-IP>:18443`
+- App inside Kali: open `https://localhost:18443`
+
+The generated certificate is valid for `localhost` and `127.0.0.1` only. Accessing it by a VM/host IP will produce a name-mismatch warning; use a certificate with that IP in its subject alternative names if validating the server identity is part of the exercise.
 
 For detailed VM networking steps, read:
 - `docs/KALI_VM_NETWORKING.md`
@@ -19,7 +22,7 @@ For detailed VM networking steps, read:
 
 ## Login with test users
 
-1. Open `http://localhost:18181`.
+1. Open `https://localhost:18443`.
 2. Click **Login** in the top menu.
 3. Sign in with one of these accounts:
 

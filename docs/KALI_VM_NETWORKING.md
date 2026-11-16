@@ -16,7 +16,7 @@ Only test your own local lab environment.
 ## Mode A: Same machine
 
 App URL:
-`http://localhost:18181`
+`https://localhost:18443`
 
 MailHog:
 `http://localhost:8025`
@@ -25,6 +25,7 @@ MailHog:
 
 Steps:
 1. Start app on host laptop:
+   `sh scripts/generate-dev-cert.sh`
    `docker compose up --build`
 2. Find host IP.
 
@@ -39,10 +40,12 @@ For Windows PowerShell:
 
 3. From Kali:
    `ping <HOST-IP>`
-   `curl -I http://<HOST-IP>:18181`
+   `curl -k -I https://<HOST-IP>:18443`
 
 4. Open browser in Kali:
-   `http://<HOST-IP>:18181`
+   `https://<HOST-IP>:18443`
+
+The development certificate covers `localhost` and `127.0.0.1`, not the host IP. The browser will report a certificate name mismatch when using the IP; generate a certificate containing the lab host IP in its subject alternative names to verify the server identity.
 
 Troubleshooting:
 - If NAT does not work, try bridged adapter or host-only adapter.
@@ -58,26 +61,28 @@ Steps:
    - Host-only Adapter, or
    - Internal Network in VirtualBox/VMware/UTM/Parallels.
 2. Start Docker app inside target VM:
+   `sh scripts/generate-dev-cert.sh`
    `docker compose up --build`
 3. Find target VM IP:
    `ip -4 addr`
 4. From Kali:
    `ping <TARGET-VM-IP>`
-   `curl -I http://<TARGET-VM-IP>:18181`
+   `curl -k -I https://<TARGET-VM-IP>:18443`
 5. Open:
-   `http://<TARGET-VM-IP>:18181`
+   `https://<TARGET-VM-IP>:18443`
 
 ## Mode D: App inside Kali
 
 Start app in Kali:
+`sh scripts/generate-dev-cert.sh`
 `docker compose up --build`
 
 Open:
-`http://localhost:18181`
+`https://localhost:18443`
 
 ## Useful basic commands
 
-- `curl -I http://<TARGET-IP>:18181`
+- `curl -k -I https://<TARGET-IP>:18443`
 - `nc -vz <TARGET-IP> 18181`
 - `ip route`
 - `ip -4 addr`

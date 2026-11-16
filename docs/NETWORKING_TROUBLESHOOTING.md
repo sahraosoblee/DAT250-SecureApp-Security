@@ -9,12 +9,13 @@ docker compose ps
 If services are not listed as running, start Docker Desktop/Engine and run:
 
 ```bash
+sh scripts/generate-dev-cert.sh
 docker compose up --build
 ```
 
 ## Port already in use
 
-Another local service may already use port 18181 or 8025.
+Another local service may already use port 18181, 18443, or 8025.
 
 ```bash
 docker compose down
@@ -31,10 +32,13 @@ Checklist:
 - Are the VMs on the same virtual network?
 - Is the firewall blocking inbound connections?
 - Is the app reachable from the host first?
+- Was the development certificate generated before starting Compose?
 - Try curl from the target machine:
-  `curl -I http://localhost:18181`
+  `curl -k -I https://localhost:18443`
 - Try curl from Kali:
-  `curl -I http://<TARGET-IP>:18181`
+  `curl -k -I https://<TARGET-IP>:18443`
+
+The self-signed certificate is valid only for `localhost` and `127.0.0.1`. Access by a host/VM IP causes a certificate name-mismatch warning unless the certificate is regenerated with that IP.
 
 ## VirtualBox/VMware/UTM/Parallels notes
 
