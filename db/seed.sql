@@ -6,6 +6,8 @@ INSERT INTO users (id, email, full_name, password_hash, role, phone, address, bi
 (5, 'bob@student.uis.no', 'Bob Hansen', 'da43fa45e1bb5c63a31422b2c037a7821c838c31b0bb6072d04031b73636d85b', 'student', '+47 40001005', 'Sandnes', 'Likes backend development.'),
 (6, 'charlie@student.uis.no', 'Charlie Berg', 'f59c8846af83a901e50b706c164d53cdebc8617cddd538b5a49e4a1d5ac99674', 'student', '+47 40001006', 'Stavanger', 'Works on secure coding exercises.')
 ON CONFLICT (id) DO NOTHING;
+SELECT setval(pg_get_serial_sequence('public.users', 'id'), MAX(id))
+FROM public.users;
 
 INSERT INTO courses (id, title, description) VALUES
 (1, 'DAT250 Information and Software Security', 'Core course on practical software security.'),
