@@ -1,16 +1,19 @@
-import hashlib
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 import secrets
 from fastapi import Request
 from app.database import run_query
 
+ph = PasswordHasher()
 
 def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
-
+    return ph.hash(password)
 
 def verify_password(password: str, password_hash: str) -> bool:
-    return hash_password(password) == password_hash
-
+    try:
+        return ph.verify(password_hash, password)
+    except VerifyMismatchError:
+        return False
 
 def create_session(user_id: int) -> str:
     token = secrets.token_hex(16)

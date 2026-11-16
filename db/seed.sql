@@ -1,10 +1,10 @@
 INSERT INTO users (id, email, full_name, password_hash, role, phone, address, bio) VALUES
-(1, 'admin@dat250.local', 'System Administrator', '3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2', 'admin', '+47 10001000', 'UiS Campus', 'Responsible for lab operations.'),
-(2, 'teacher@dat250.local', 'Course Teacher', '54a8ca277e41818ee3f18340ad8303bc772cdcb612ca85c60852cd66beb06fe2', 'teacher', '+47 10001001', 'UiS Campus', 'Lecturer in secure software development.'),
-(3, 'ta@dat250.local', 'Teaching Assistant', '5d2fd7d3b1cef148364cf49f8c99a03de74c0419cf80362cd6b433f3d1c4c241', 'ta', '+47 10001002', 'Stavanger', 'Supports grading and feedback.'),
-(4, 'alice@student.uis.no', 'Alice Nilsen', '6766ad37ada06ddc90f432f8d915f991dd0ec6559bfd8d400b380e4aef4e3ac1', 'student', '+47 40001004', 'Stavanger', 'Interested in web security.'),
-(5, 'bob@student.uis.no', 'Bob Hansen', 'da43fa45e1bb5c63a31422b2c037a7821c838c31b0bb6072d04031b73636d85b', 'student', '+47 40001005', 'Sandnes', 'Likes backend development.'),
-(6, 'charlie@student.uis.no', 'Charlie Berg', 'f59c8846af83a901e50b706c164d53cdebc8617cddd538b5a49e4a1d5ac99674', 'student', '+47 40001006', 'Stavanger', 'Works on secure coding exercises.')
+(1, 'admin@dat250.local', 'System Administrator', '$argon2id$v=19$m=65536,t=3,p=1$yNsZkVs/skmFTBgR1YNivA$kV9SZ8yPWewLAIuIBiWIHaXZRBqX7FXYwYvFvGRyN0g', 'admin', '+47 10001000', 'UiS Campus', 'Responsible for lab operations.'),
+(2, 'teacher@dat250.local', 'Course Teacher', '$argon2id$v=19$m=65536,t=3,p=1$4c65vtxcX6d+BsoIkShB+w$6/TtTTpKdRwwgYgBWSK8h33oGZCoAzjemhYrgDeJq/k', 'teacher', '+47 10001001', 'UiS Campus', 'Lecturer in secure software development.'),
+(3, 'ta@dat250.local', 'Teaching Assistant', '$argon2id$v=19$m=65536,t=3,p=1$HeI9Ff60cZmod+RjjSEHFA$a9WPqDAN880bwndycd988DAErAMrGzZXsLU9xAeP4Ws', 'ta', '+47 10001002', 'Stavanger', 'Supports grading and feedback.'),
+(4, 'alice@student.uis.no', 'Alice Nilsen', '$argon2id$v=19$m=65536,t=3,p=1$wR5yXFcn2cl6xtPmQxe02A$nRO/VcHTRs4whStnMhVgIPOLSRA2+CZduqBonFdcrFk', 'student', '+47 40001004', 'Stavanger', 'Interested in web security.'),
+(5, 'bob@student.uis.no', 'Bob Hansen', '$argon2id$v=19$m=65536,t=3,p=1$8kABAqt+QjFTofwGLyV46w$3vDGIUX/B6375PrHudTATXd3ZFUyw8L3MVnVvIlMEJ4', 'student', '+47 40001005', 'Sandnes', 'Likes backend development.'),
+(6, 'charlie@student.uis.no', 'Charlie Berg', '$argon2id$v=19$m=65536,t=3,p=1$5ZtLoHtIKerv3QT+B/sWcQ$qQ0KYemVNpJBTxcdLsnOP159xTclC9ZwCqrm/tMkjBQ', 'student', '+47 40001006', 'Stavanger', 'Works on secure coding exercises.')
 ON CONFLICT (id) DO NOTHING;
 SELECT setval(pg_get_serial_sequence('public.users', 'id'), MAX(id))
 FROM public.users;
